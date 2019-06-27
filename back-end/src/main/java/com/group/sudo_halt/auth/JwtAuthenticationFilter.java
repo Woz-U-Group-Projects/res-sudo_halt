@@ -36,8 +36,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
-            com.group.sudo_halt.user.UserEnity creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), com.group.sudo_halt.user.UserEnity.class);
+            com.group.sudo_halt.user.UserEntity creds = new ObjectMapper()
+                    .readValue(req.getInputStream(), com.group.sudo_halt.user.UserEntity.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

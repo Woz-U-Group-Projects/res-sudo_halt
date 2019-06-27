@@ -29,9 +29,9 @@ public class UserService implements UserDetailsService {
      * @param newUser the registration info from a nuew user
      * @return userdetails include username, password, and authorities
      */
-    public org.springframework.security.core.userdetails.User save(UserEnity newUser) {
+    public org.springframework.security.core.userdetails.User save(UserEntity newUser) {
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        UserEnity savedUser = userRepository.save(newUser);
+        UserEntity savedUser = userRepository.save(newUser);
         return new org.springframework.security.core.userdetails.User(savedUser.getUsername(), savedUser.getPassword(), getAuthorities());
     }
 
@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        UserEnity user = userRepository.findByUsername(username);
+        UserEntity user = userRepository.findByUsername(username);
         if (user == null){
             throw new UsernameNotFoundException(username);
         }
