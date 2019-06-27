@@ -1,5 +1,6 @@
 package com.group.sudo_halt.auth;
 
+import com.group.sudo_halt.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,13 +19,20 @@ import org.springframework.web.cors.*;
 import java.util.Arrays;
 
 
+import static com.group.sudo_halt.auth.AuthConstants.SIGN_UP_URL;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    
 
+    @Autowired
+    private UserService userService;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -33,8 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-                //.antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-                //.anyRequest().authenticated()
+                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .anyRequest().authenticated()
 
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
