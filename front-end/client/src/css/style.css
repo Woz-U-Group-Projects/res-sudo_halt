@@ -1,0 +1,23 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+/* SIGN UP PAGE */
+
+.li-signup-features {
+  font-size: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.signup-item {
+  padding: 5px;
+}
+
+.signup-form {
+  padding: 10px;
+}
+
+.features-headline {
+  padding-bottom: 20px;
+}
+
+/* END SIGN UP PAGE */
