@@ -37,11 +37,11 @@ public class UserController {
 	@PostMapping("/register")
 	public ResponseEntity<UserEntity> register(@RequestBody UserEntity newUser){
 		UserEntity searchedUsername = userRepository.findByUsername(newUser.getUsername());
-//		UserEntity searchedEmail = userRepository.findByEmail(newUser.getEmail());
-//		System.out.println(searchedEmail);
-//		if(searchedEmail != null) {
-//			return ResponseEntity.badRequest().header("Message", "Email already exists!").build();
-//		}
+		UserEntity searchedEmail = userRepository.findByEmail(newUser.getEmail());
+		System.out.println(searchedEmail);
+		if(searchedEmail != null) {
+			return ResponseEntity.badRequest().header("Message", "Email already exists!").build();
+		}
 		if(searchedUsername != null) {
 			return ResponseEntity.badRequest().header("Message", "User already exists!").build();
 		}	

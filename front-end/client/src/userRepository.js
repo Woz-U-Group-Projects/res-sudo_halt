@@ -16,8 +16,7 @@ export function getAllUsers() {
 
 // SIGN UP NEW USER
 export function signup(data) {
-  console.log(data);
-    return axiosreturn.post(`${URL}/api/user/register`, {email: data.email, username: data.username, password:data.password, firstName:data.firstName, lastName:data.lastName} )
+    return axios.post(`${URL}/api/user/register`, {email: data.email, username: data.username, password:data.password, firstName:data.firstName, lastName:data.lastName} )
             .then(response => response.data);
 }
 
