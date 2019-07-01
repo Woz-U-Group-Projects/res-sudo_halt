@@ -11,17 +11,35 @@ class SignUp extends Component {
       password: "",
       firstName: "",
       lastName: ""
+      // users: []
     };
+  }
+
+  // RENDER ALL USERS
+  // componentDidMount() {
+  //      getAllUsers.call(this)
+  //      .catch(err => console.log(err));
+  //      console.log("componentDidMount", this.state.users);
+  // }
+
+regexChecker = () => {
+    let email = document.getElementById("email").value;
+    const regEx = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/;
+    if (email.match(regEx)) { 
+      alert("Yay!");    
+    } else {
+      alert("Oh no! That's an invalid format!");
+    }
   }
 
   // SIGN UP USER POST REQUEST
   handleSignUp = e => {
     e.preventDefault();
-    signup(this.state)
-    .catch(err => console.log(err));
+    this.regexChecker();
+    signup(this.state).catch(err => alert("Error: User Already Exists!"));
   };
 
-//  SET STATE TO INPUT BOXES
+  //  SET STATE TO INPUT BOXES
   handleChange = e => {
     console.log(e.target.value);
     this.setState({ [e.target.name]: e.target.value });

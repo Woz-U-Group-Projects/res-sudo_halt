@@ -1,9 +1,29 @@
-import axios from 'axios';
+import axios from "axios";
 
-const USER_BASE_URL = 'http://localhost:8080/api/user'
+const URL = 'http://localhost:8080'
 
-export function signup(data){
+// GET ALL USERS
+export function getAllUsers() {
+  return axios
+    .get(`${URL}`)
+    .then(res => res.data)
+    .then(data => {
+      this.setState({
+        users: data
+      });
+    });
+}
+
+// SIGN UP NEW USER
+export function signup(data) {
   console.log(data);
-    return axios.post(`${USER_BASE_URL}/register`, {email: data.email, username: data.username, password:data.password, firstName:data.firstName, lastName:data.lastName} )
-            .then(response => response.data);
+  return axios
+    .post(`${URL}/api/user/register`, {
+      email: data.email,
+      username: data.username,
+      password: data.password,
+      firstName: data.firstName,
+      lastName: data.lastName
+    })
+    .then(response => response.data);
 }
