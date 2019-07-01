@@ -7,15 +7,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/osp")
 public class OspController {
     @Autowired
     OspRepository ospRepository;
 
+    @GetMapping
+    public List<OspEntity> getJSONOsp(){
+        List<OspEntity> foundOsp = ospRepository.findAll();
+        return foundOsp;
+    }
+
     @GetMapping("/{ospName}")
-    public ResponseEntity<OspEnity> getUserInfo(@PathVariable(value = "ospName") String ospName) {
-        OspEnity foundOsp = ospRepository.findByOspName(ospName);
+    public ResponseEntity<OspEntity> getUserInfo(@PathVariable(value = "ospName") String ospName) {
+        OspEntity foundOsp = ospRepository.findByOspName(ospName);
 
         if (foundOsp == null) {
             return ResponseEntity.notFound().header("Message", "No OSP is found").build();
