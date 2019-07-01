@@ -10,7 +10,11 @@ class SignUp extends Component {
       username: "",
       password: "",
       firstName: "",
-      lastName: ""
+      lastName: "",
+      errors: {
+        email: "",
+        password: ""
+      }
       // users: []
     };
   }
@@ -22,30 +26,34 @@ class SignUp extends Component {
   //      console.log("componentDidMount", this.state.users);
   // }
 
-regexChecker = () => {
-    let email = document.getElementById("email").value;
-    const regEx = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/;
-    if (email.match(regEx)) { 
-      alert("Yay!");    
-    } else {
-      alert("Oh no! That's an invalid format!");
-    }
-  }
-
   // SIGN UP USER POST REQUEST
   handleSignUp = e => {
     e.preventDefault();
-    this.regexChecker();
     signup(this.state).catch(err => alert("Error: User Already Exists!"));
   };
 
-  //  SET STATE TO INPUT BOXES
   handleChange = e => {
-    console.log(e.target.value);
-    this.setState({ [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    let errors = this.state.errors;
+    const validEmailRegex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
+    switch (name) {
+      case "email":
+        errors.email = validEmailRegex.test(value) ? "" : "Email is not valid!";
+        break;
+      case "password":
+        errors.password =
+          value.length < 8 ? "Password must be 8 characters long!" : "";
+        break;
+      default:
+        break;
+    }
+    this.setState({ errors, [name]: value }, () => {});
   };
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div className="container signup">
         <div className="row">
@@ -72,6 +80,11 @@ regexChecker = () => {
                   name="email"
                   required
                 />
+                {errors.email.length > 0 && (
+                  <span id="emailError" className="error">
+                    {errors.email}
+                  </span>
+                )}
               </div>
               {/* USERNAME */}
               <div className="form-group">
@@ -98,6 +111,11 @@ regexChecker = () => {
                   name="password"
                   required
                 />
+                {errors.password.length > 0 && (
+                  <span id="passwordError" className="error">
+                    {errors.password}
+                  </span>
+                )}
               </div>
               {/* FIRST NAME */}
               <div className="form-group">
