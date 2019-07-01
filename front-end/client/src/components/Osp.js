@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import $ from "jquery";
+import HostUrl from "./HostUrl";
 
 
 class Osps extends Component {
@@ -9,8 +10,7 @@ class Osps extends Component {
 
     componentDidMount(){
         $(document).ready(function() {
-
-            $.getJSON("http://localhost:8080/api/osp", function (data) {
+            $.getJSON(HostUrl + "/api/osp", function (data) {
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
                     $("#table").append("<tr>"
@@ -31,8 +31,8 @@ class Osps extends Component {
 
     render() {
         return (
-            <div class="card-body" id="well-section">
-                <table class="table" id="table">
+            <div className="card-body" id="well-section">
+                <table className="table" id="table">
                     <thead>
                         <tr>
                             <th scope="col">OSP Name </th>
